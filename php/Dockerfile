@@ -16,3 +16,5 @@ RUN curl -sS https://get.symfony.com/cli/installer | bash
 RUN mv /root/.symfony5/bin/symfony /usr/local/bin/symfony
 RUN git config --global user.email "mariussandulache2015@gmail.com" \
     && git config --global user.name "Marius Sandulache"
+
+RUN git config --global --add safe.directory /var/www/eticket
