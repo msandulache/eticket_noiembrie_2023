@@ -1,34 +1,251 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
-        <script src="https://cdn.tailwindcss.com"></script>
-        <script>
-            tailwind.config = {
-                theme: {
-                    extend: {
-                        colors: {
-                            clifford: '#da373d',
-                        }
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %} - eticket.</title>
+
+    <link rel="shortcut icon" href="assets/images/favicon/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="assets/css/main.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Roboto:wght@400;500;700&display=swap"
+          rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#991b1b',
+                        secondary: '#fb923c',
+                        tertiary: '#334155'
                     }
                 }
             }
-        </script>
-        {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
-        {% block stylesheets %}
-            {{ encore_entry_link_tags('app') }}
-        {% endblock %}
+        }
+    </script>
 
-        {% block javascripts %}
-            {{ encore_entry_script_tags('app') }}
-        {% endblock %}
-    </head>
-    <body>
-    <h1 class="text-3xl font-bold underline text-clifford">
-        Hello world!
-    </h1>
-        {% block body %}{% endblock %}
-    </body>
+    {% block stylesheets %}
+        {{ encore_entry_link_tags('app') }}
+    {% endblock %}
+
+    {% block javascripts %}
+        {{ encore_entry_script_tags('app') }}
+    {% endblock %}
+
+</head>
+
+<body>
+
+
+<!-- header -->
+<header class="py-4 shadow-sm bg-white">
+    <div class="container flex items-center justify-between">
+        <a href="index.html" class="indent-3 text-3xl font-bold">
+            <span class="text-secondary">e</span><span class="text-primary">ticket</span><span class="text-secondary">.</span>
+        </a>
+
+        <div class="w-full max-w-xl relative flex">
+                <span class="absolute left-4 top-3 text-lg text-gray-400">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </span>
+            <input type="text" name="search" id="search"
+                   class="w-full border border-primary border-r-0 pl-12 py-3 pr-3 rounded-l-md focus:outline-none hidden md:flex"
+                   placeholder="search">
+            <button
+                    class="bg-primary border border-primary text-white px-8 py-3 rounded-r-md hover:bg-transparent hover:text-primary transition hidden md:flex">
+                Search
+            </button>
+        </div>
+
+        <div class="flex items-center space-x-4 mr-3">
+            <a href="#" class="text-center text-tertiary hover:text-primary transition relative">
+                <div class="text-2xl">
+                    <i class="fa-regular fa-heart"></i>
+                </div>
+                <div class="text-xs leading-3">Wishlist</div>
+                <div
+                        class="absolute right-0 -top-1 w-5 h-5 rounded-full flex items-center justify-center bg-primary text-white text-xs">
+                    8
+                </div>
+            </a>
+            <a href="#" class="text-center text-tertiary hover:text-primary transition relative">
+                <div class="text-2xl">
+                    <i class="fa-solid fa-bag-shopping"></i>
+                </div>
+                <div class="text-xs leading-3">Cart</div>
+                <div
+                        class="absolute -right-3 -top-1 w-5 h-5 rounded-full flex items-center justify-center bg-primary text-white text-xs">
+                    2
+                </div>
+            </a>
+            <a href="#" class="text-center text-tertiary hover:text-primary transition relative">
+                <div class="text-2xl">
+                    <i class="fa-regular fa-user"></i>
+                </div>
+                <div class="text-xs leading-3">Account</div>
+            </a>
+        </div>
+    </div>
+</header>
+<!-- ./header -->
+
+<!-- Navbar goes here -->
+<nav class="bg-primary shadow-lg">
+    <div class="max-w-6xl mx-auto px-4">
+        <div class="flex justify-between">
+            <div class="flex space-x-7">
+                <div>
+                    <!-- Website Logo -->
+                    <a href="#" class="flex items-center py-4 px-2">
+                        &nbsp;
+                    </a>
+                </div>
+                <!-- Primary Navbar items -->
+                <div class="hidden md:flex items-center space-x-1">
+                    <a href="" class="py-4 px-2 text-white border-b-4 border-secondary font-semibold ">Home</a>
+                    <a href="" class="py-4 px-2 text-white hover:text-secondary transition duration-300">Services</a>
+                    <a href="" class="py-4 px-2 text-white hover:text-secondary transition duration-300">About</a>
+                    <a href="" class="py-4 px-2 text-white hover:text-secondary transition duration-300">Contact
+                        Us</a>
+                </div>
+            </div>
+            <!-- Secondary Navbar items -->
+            <div class="hidden md:flex items-center space-x-3 ">
+                <a href=""
+                   class="py-2 px-2 font-medium text-white rounded hover:bg-secondary hover:text-primary transition duration-300">Log
+                    In</a>
+                <a href=""
+                   class="py-2 px-2 font-medium text-primary bg-secondary rounded transition duration-300">Sign
+                    Up</a>
+            </div>
+            <!-- Mobile menu button -->
+            <div class="md:hidden flex items-center">
+                <button class="outline-none mobile-menu-button">
+                    <svg class=" w-6 h-6 text-gray-500 hover:text-green-500 "
+                         x-show="!showMenu"
+                         fill="none"
+                         stroke-linecap="round"
+                         stroke-linejoin="round"
+                         stroke-width="2"
+                         viewBox="0 0 24 24"
+                         stroke="currentColor"
+                    >
+                        <path d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+    <!-- mobile menu -->
+    <div class="hidden mobile-menu">
+        <ul class="">
+            <li class="active"><a href="index.html"
+                                  class="block text-sm px-2 py-4 text-white bg-green-500 font-semibold">Home</a></li>
+            <li><a href="#services"
+                   class="block text-sm px-2 py-4 hover:bg-green-500 transition duration-300">Services</a></li>
+            <li><a href="#about" class="block text-sm px-2 py-4 hover:bg-green-500 transition duration-300">About</a>
+            </li>
+            <li><a href="#contact" class="block text-sm px-2 py-4 hover:bg-green-500 transition duration-300">Contact
+                    Us</a></li>
+        </ul>
+    </div>
+    <script>
+        const btn = document.querySelector("button.mobile-menu-button");
+        const menu = document.querySelector(".mobile-menu");
+
+        btn.addEventListener("click", () => {
+            menu.classList.toggle("hidden");
+        });
+    </script>
+</nav>
+<!-- ./navbar -->
+
+<!-- banner -->
+<div class="bg-cover bg-no-repeat bg-center py-16 pl-10"
+     style="background-image: url('https://img.freepik.com/free-photo/cinema-seats-still-life_23-2148115439.jpg?size=626&ext=jpg&ga=GA1.1.1883078379.1700440830&semt=ais');">
+    <div class="container">
+        <h2 class="text-4xl font-semibold text-left mb-3 text-secondary ">Book cinema movie <br> tickets easily</h2>
+        <h3 class="text-xl text-left mb-8 text-white ">
+            Browse through our movie lists<br>
+            and choose the cinema seats easily
+        </h3>
+        <div class="mt-12 space-x-3">
+            <a href="" class="bg-primary border border-primary text-white px-8 py-2 mx-1 font-medium
+                    rounded-md hover:bg-transparent hover:text-primary">
+                Register for free
+            </a>
+            <a href="" class="bg-primary border border-primary text-white px-8 py-2 mx-1 font-medium
+                    rounded-md hover:bg-transparent hover:text-primary">
+                Our top rated movies
+            </a>
+        </div>
+    </div>
+</div>
+<!-- ./banner -->
+
+{% block body %}{% endblock %}
+
+<footer class="bg-gray-800">
+    <div class="mx-auto grid max-w-screen-xl gap-y-8 gap-x-12 px-4 py-10 md:grid-cols-2 xl:grid-cols-4 xl:px-10">
+        <div class="max-w-sm text-center">
+            <div class="mt-4 mb-2 font-medium xl:mb-4 text-secondary">
+                <span class="text-2xl font-bold text-primary">e<span class="text-secondary">ticket</span>.</span>
+            </div>
+            <div class="text-gray-400">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nobis ad a officia ea
+                expedita!
+            </div>
+        </div>
+        <div class="text-center">
+            <div class="mt-4 mb-2 font-medium xl:mb-4 text-secondary">Address</div>
+            <div class="text-gray-400">
+                35 Remida Heights, <br/>
+                45 Street, <br/>
+                South Caroline, US
+            </div>
+        </div>
+        <div class="text-center">
+            <div class="mt-4 mb-2 font-medium xl:mb-4 text-secondary">Links</div>
+            <nav aria-label="Footer Navigation" class="text-gray-400">
+                <ul class="space-y-3">
+                    <li><a class="hover:text-white" href="#">Pricing</a></li>
+                    <li><a class="hover:text-white" href="#">Demo</a></li>
+                    <li><a class="hover:text-white" href="#">Press</a></li>
+                    <li><a class="hover:text-white" href="#">Support Hub</a></li>
+                    <li><a class="hover:text-white" href="#">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div class="">
+            <div class="mt-4 mb-2 font-medium xl:mb-4">Subscribe to our Newsletter</div>
+            <div class="flex flex-col">
+                <div class="mb-4">
+                    <input type="email"
+                           class="focus:outline mb-2 block h-14  "
+                           placeholder="Enter your email"/>
+                    <button class="block rounded-xl bg-blue-600 px-6 py-3 font-medium text-white">Subscribe</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="bg-gray-100">
+        <div class="mx-auto flex max-w-screen-xl flex-col gap-y-4 px-4 py-3 text-center text-gray-500 sm:flex-row sm:justify-between sm:text-left">
+            <div class="">© 2022 eTicket | All Rights Reserved</div>
+            <div class="">
+                <a class="" href="/privacy-policy">Privacy Policy</a>
+                <span>|</span>
+                <a class="" href="/terms-of-service">Terms of Service</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+</body>
+
 </html>

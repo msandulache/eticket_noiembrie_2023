@@ -2,6 +2,8 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Category;
+use App\Entity\Movie;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
@@ -51,8 +53,10 @@ class DashboardController extends AbstractDashboardController
             MenuItem::linkToDashboard('Dashboard', 'fa fa-home'),
 
             MenuItem::section('Blog'),
-            MenuItem::linkToCrud('Categories', 'fa fa-tags', Genre::class)->setBadge(468, 'success'),
-//            MenuItem::linkToCrud('Blog Posts', 'fa fa-file-text', BlogPost::class),
+            MenuItem::linkToCrud('Categories', 'fa fa-file-text', Category::class),
+            MenuItem::linkToCrud('Genres', 'fa fa-tags', Genre::class),
+            MenuItem::linkToCrud('Movies', 'fa fa-tags', Movie::class),
+
 //
 //            MenuItem::section('Users'),
 //            MenuItem::linkToCrud('Comments', 'fa fa-comment', Comment::class),

@@ -13,6 +13,7 @@
         "doctrine/orm": "^2.16",
         "easycorp/easyadmin-bundle": "^4.8",
         "guzzlehttp/guzzle": "^7.8",
+        "symfony/asset": "6.0.*",
         "symfony/console": "6.0.*",
         "symfony/dotenv": "6.0.*",
         "symfony/flex": "^2",
