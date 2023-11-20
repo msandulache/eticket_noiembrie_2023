@@ -36,6 +36,57 @@ class MovieRepository extends ServiceEntityRepository
 //        ;
 //    }
 
+
+    public function findByCategoryId($value, $limit = null): array
+    {
+        if(!empty($limit)) {
+            return $this->createQueryBuilder('m')
+                ->andWhere('m.category_id = :val')
+                ->setParameter('val', $value)
+                ->orderBy('m.id', 'ASC')
+                ->setMaxResults($limit)
+                ->getQuery()
+                ->getResult()
+                ;
+        } else {
+            return $this->createQueryBuilder('m')
+                ->andWhere('m.category_id = :val')
+                ->setParameter('val', $value)
+                ->orderBy('m.id', 'ASC')
+                ->getQuery()
+                ->getResult()
+                ;
+        }
+    }
+
+    public function findAllTopRated($limit = null): array
+    {
+        $topRatedMovies = [];
+
+        if(!empty($limit)) {
+            $movies = $this->createQueryBuilder('m')
+                ->orderBy('m.vote_average', 'DESC')
+                ->setMaxResults($limit)
+                ->getQuery()
+                ->getResult()
+                ;
+        } else {
+            $movies = $this->createQueryBuilder('m')
+                ->orderBy('m.vote_average', 'DESC')
+                ->getQuery()
+                ->getResult()
+                ;
+        }
+
+        foreach($movies as $movie) {
+            if (!array_key_exists($movie->getTmdbId(), $topRatedMovies)) {
+                $topRatedMovies[$movie->getTmdbId()] = $movie;
+            }
+        }
+
+        return $topRatedMovies;
+    }
+
 //    public function findOneBySomeField($value): ?Movie
 //    {
 //        return $this->createQueryBuilder('m')

@@ -47,8 +47,9 @@
 <!-- header -->
 <header class="py-4 shadow-sm bg-white">
     <div class="container flex items-center justify-between">
-        <a href="index.html" class="indent-3 text-3xl font-bold">
-            <span class="text-secondary">e</span><span class="text-primary">ticket</span><span class="text-secondary">.</span>
+        <a href="/" class="indent-3 text-3xl font-bold">
+            <span class="text-secondary">e</span><span class="text-primary">ticket</span><span
+                    class="text-secondary">.</span>
         </a>
 
         <div class="w-full max-w-xl relative flex">
@@ -64,34 +65,39 @@
             </button>
         </div>
 
-        <div class="flex items-center space-x-4 mr-3">
-            <a href="#" class="text-center text-tertiary hover:text-primary transition relative">
-                <div class="text-2xl">
-                    <i class="fa-regular fa-heart"></i>
-                </div>
-                <div class="text-xs leading-3">Wishlist</div>
-                <div
-                        class="absolute right-0 -top-1 w-5 h-5 rounded-full flex items-center justify-center bg-primary text-white text-xs">
-                    8
-                </div>
-            </a>
-            <a href="#" class="text-center text-tertiary hover:text-primary transition relative">
-                <div class="text-2xl">
-                    <i class="fa-solid fa-bag-shopping"></i>
-                </div>
-                <div class="text-xs leading-3">Cart</div>
-                <div
-                        class="absolute -right-3 -top-1 w-5 h-5 rounded-full flex items-center justify-center bg-primary text-white text-xs">
-                    2
-                </div>
-            </a>
-            <a href="#" class="text-center text-tertiary hover:text-primary transition relative">
-                <div class="text-2xl">
-                    <i class="fa-regular fa-user"></i>
-                </div>
-                <div class="text-xs leading-3">Account</div>
-            </a>
-        </div>
+        {% if app.user %}
+            <div class="flex items-center space-x-4 mr-3">
+                <a href="#" class="text-center text-tertiary hover:text-primary transition relative">
+                    <div class="text-2xl">
+                        <i class="fa-regular fa-heart"></i>
+                    </div>
+                    <div class="text-xs leading-3">Wishlist</div>
+                    <div
+                            class="absolute right-0 -top-1 w-5 h-5 rounded-full flex items-center justify-center bg-primary text-white text-xs">
+                        8
+                    </div>
+                </a>
+                <a href="#" class="text-center text-tertiary hover:text-primary transition relative">
+                    <div class="text-2xl">
+                        <i class="fa-solid fa-bag-shopping"></i>
+                    </div>
+                    <div class="text-xs leading-3">Cart</div>
+                    <div
+                            class="absolute -right-3 -top-1 w-5 h-5 rounded-full flex items-center justify-center bg-primary text-white text-xs">
+                        2
+                    </div>
+                </a>
+                <a href="#" class="text-center text-tertiary hover:text-primary transition relative">
+                    <div class="text-2xl">
+                        <i class="fa-regular fa-user"></i>
+                    </div>
+                    <div class="text-xs leading-3">Account</div>
+                </a>
+            </div>
+        {% else %}
+            <div class="flex items-center space-x-4 mr-3">
+            </div>
+        {% endif %}
     </div>
 </header>
 <!-- ./header -->
@@ -109,22 +115,36 @@
                 </div>
                 <!-- Primary Navbar items -->
                 <div class="hidden md:flex items-center space-x-1">
-                    <a href="" class="py-4 px-2 text-white border-b-4 border-secondary font-semibold ">Home</a>
-                    <a href="" class="py-4 px-2 text-white hover:text-secondary transition duration-300">Services</a>
-                    <a href="" class="py-4 px-2 text-white hover:text-secondary transition duration-300">About</a>
-                    <a href="" class="py-4 px-2 text-white hover:text-secondary transition duration-300">Contact
+                    <a href="/" class="py-4 px-2 text-white border-b-4 border-secondary font-semibold ">Home</a>
+                    <a href="/category/popular" class="py-4 px-2 text-white hover:text-secondary transition duration-300">Popular</a>
+                    <a href="/category/top-rated" class="py-4 px-2 text-white hover:text-secondary transition duration-300">Top
+                        Rated</a>
+                    <a href="/category/romanian-night" class="py-4 px-2 text-white hover:text-secondary transition duration-300">Romanian
+                        Night</a>
+                    <a href="/category/films-francais" class="py-4 px-2 text-white hover:text-secondary transition duration-300">Films
+                        français</a>
+                    <a href="/contact" class="py-4 px-2 text-white hover:text-secondary transition duration-300">Contact
                         Us</a>
                 </div>
             </div>
             <!-- Secondary Navbar items -->
-            <div class="hidden md:flex items-center space-x-3 ">
-                <a href=""
-                   class="py-2 px-2 font-medium text-white rounded hover:bg-secondary hover:text-primary transition duration-300">Log
-                    In</a>
-                <a href=""
-                   class="py-2 px-2 font-medium text-primary bg-secondary rounded transition duration-300">Sign
-                    Up</a>
-            </div>
+            {% if app.user %}
+                <div class="hidden md:flex items-center space-x-3 ">
+                    <a href=""
+                       class="py-2 px-2 font-medium text-white rounded hover:bg-secondary hover:text-primary transition duration-300">{{ app.user.userIdentifier }}</a>
+                    <a href="{{ path('app_logout') }}"
+                       class="py-2 px-2 font-medium text-primary bg-secondary rounded transition duration-300">Logout</a>
+                </div>
+            {% else %}
+                <div class="hidden md:flex items-center space-x-3 ">
+                    <a href="/login"
+                       class="py-2 px-2 font-medium text-white rounded hover:bg-secondary hover:text-primary transition duration-300">Log
+                        In</a>
+                    <a href="/register"
+                       class="py-2 px-2 font-medium text-primary bg-secondary rounded transition duration-300">Sign
+                        Up</a>
+                </div>
+            {% endif %}
             <!-- Mobile menu button -->
             <div class="md:hidden flex items-center">
                 <button class="outline-none mobile-menu-button">
@@ -167,29 +187,6 @@
 </nav>
 <!-- ./navbar -->
 
-<!-- banner -->
-<div class="bg-cover bg-no-repeat bg-center py-16 pl-10"
-     style="background-image: url('https://img.freepik.com/free-photo/cinema-seats-still-life_23-2148115439.jpg?size=626&ext=jpg&ga=GA1.1.1883078379.1700440830&semt=ais');">
-    <div class="container">
-        <h2 class="text-4xl font-semibold text-left mb-3 text-secondary ">Book cinema movie <br> tickets easily</h2>
-        <h3 class="text-xl text-left mb-8 text-white ">
-            Browse through our movie lists<br>
-            and choose the cinema seats easily
-        </h3>
-        <div class="mt-12 space-x-3">
-            <a href="" class="bg-primary border border-primary text-white px-8 py-2 mx-1 font-medium
-                    rounded-md hover:bg-transparent hover:text-primary">
-                Register for free
-            </a>
-            <a href="" class="bg-primary border border-primary text-white px-8 py-2 mx-1 font-medium
-                    rounded-md hover:bg-transparent hover:text-primary">
-                Our top rated movies
-            </a>
-        </div>
-    </div>
-</div>
-<!-- ./banner -->
-
 {% block body %}{% endblock %}
 
 <footer class="bg-gray-800">
@@ -205,25 +202,25 @@
         <div class="text-center">
             <div class="mt-4 mb-2 font-medium xl:mb-4 text-secondary">Address</div>
             <div class="text-gray-400">
-                35 Remida Heights, <br/>
-                45 Street, <br/>
-                South Caroline, US
+                Drumul Binelui <br/>
+                nr. 31, <br/>
+                Bucharest, RO
             </div>
         </div>
         <div class="text-center">
-            <div class="mt-4 mb-2 font-medium xl:mb-4 text-secondary">Links</div>
+            <div class="mt-4 mb-2 font-medium xl:mb-4 text-secondary">Menu</div>
             <nav aria-label="Footer Navigation" class="text-gray-400">
                 <ul class="space-y-3">
-                    <li><a class="hover:text-white" href="#">Pricing</a></li>
-                    <li><a class="hover:text-white" href="#">Demo</a></li>
-                    <li><a class="hover:text-white" href="#">Press</a></li>
-                    <li><a class="hover:text-white" href="#">Support Hub</a></li>
-                    <li><a class="hover:text-white" href="#">Contact</a></li>
+                    <li><a class="hover:text-white" href="/category/97">Popular</a></li>
+                    <li><a class="hover:text-white" href="#">Top rated</a></li>
+                    <li><a class="hover:text-white" href="/category/98">Romanian Night</a></li>
+                    <li><a class="hover:text-white" href="/category/99">Films français</a></li>
+                    <li><a class="hover:text-white" href="/contact">Contact Us</a></li>
                 </ul>
             </nav>
         </div>
         <div class="">
-            <div class="mt-4 mb-2 font-medium xl:mb-4">Subscribe to our Newsletter</div>
+            <div class="mt-4 mb-2 font-medium xl:mb-4 text-secondary">Subscribe to our Newsletter</div>
             <div class="flex flex-col">
                 <div class="mb-4">
                     <input type="email"

@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+{% block body %}
+    {% for flash_error in app.flashes('verify_email_error') %}
+        <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+    {% endfor %}
+
+    <h1>Register</h1>
+
+    <div class="pt-5 pb-1">
+
+        <div class="lg:m-10">
+            <form class="relative border border-gray-100 space-y-3 max-w-screen-md mx-auto rounded-md bg-white p-6 shadow-xl lg:p-10">
+                <h1 class="mb-6 text-xl font-semibold lg:text-2xl">Register</h1>
+
+                <div class="grid gap-3 md:grid-cols-2">
+                    <div>
+                        <label class=""> First Name </label>
+                        <input type="text" placeholder="Your Name" class="mt-2 h-12 w-full rounded-md bg-gray-100 px-3" />
+                    </div>
+                    <div>
+                        <label class=""> Last Name </label>
+                        <input type="text" placeholder="Last  Name" class="mt-2 h-12 w-full rounded-md bg-gray-100 px-3" />
+                    </div>
+                </div>
+                <div>
+                    <label class=""> Username </label>
+                    <input type="text" placeholder="Username" class="mt-2 h-12 w-full rounded-md bg-gray-100 px-3" />
+                </div>
+                <div>
+                    <label class=""> Email Address </label>
+                    <input type="email" placeholder="Info@example.com" class="mt-2 h-12 w-full rounded-md bg-gray-100 px-3" />
+                </div>
+                <div>
+                    <label class=""> Password </label>
+                    <input type="password" placeholder="******" class="mt-2 h-12 w-full rounded-md bg-gray-100 px-3" />
+                </div>
+
+                <div class="checkbox">
+                    <input type="checkbox" id="chekcbox1" checked="" />
+                    <label for="checkbox1">I agree to the <a href="#" target="_blank" class="text-blue-600"> Terms and Conditions </a> </label>
+                </div>
+
+                <div>
+                    <button type="button" class="mt-5 w-full rounded-md bg-blue-600 p-2 text-center font-semibold text-white">Get Started</button>
+                </div>
+            </form>
+
+        </div>
+
+
+    </div>
+
+    {{ form_errors(registrationForm) }}
+
+    {{ form_start(registrationForm) }}
+        {{ form_row(registrationForm.email) }}
+        {{ form_row(registrationForm.plainPassword, {
+            label: 'Password'
+        }) }}
+        {{ form_row(registrationForm.agreeTerms) }}
+
+        <button type="submit" class="btn">Register</button>
+    {{ form_end(registrationForm) }}
+{% endblock %}
