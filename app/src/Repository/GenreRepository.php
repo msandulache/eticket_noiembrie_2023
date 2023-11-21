@@ -21,6 +21,16 @@ class GenreRepository extends ServiceEntityRepository
         parent::__construct($registry, Genre::class);
     }
 
+    public function findByTmdbIds($genreIds): array
+    {
+        return $this->createQueryBuilder('g')
+            ->where('g.tmdb_id IN (:garray)')
+            ->setParameter('garray', explode(',', $genreIds))
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
 //    /**
 //     * @return Genre[] Returns an array of Genre objects
 //     */
