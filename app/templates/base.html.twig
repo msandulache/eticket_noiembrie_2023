@@ -115,16 +115,51 @@
                 </div>
                 <!-- Primary Navbar items -->
                 <div class="hidden md:flex items-center space-x-1">
-                    <a href="/" class="py-4 px-2 text-white border-b-4 border-secondary font-semibold ">Home</a>
-                    <a href="/category/popular" class="py-4 px-2 text-white hover:text-secondary transition duration-300">Popular</a>
-                    <a href="/category/top-rated" class="py-4 px-2 text-white hover:text-secondary transition duration-300">Top
-                        Rated</a>
-                    <a href="/category/romanian-night" class="py-4 px-2 text-white hover:text-secondary transition duration-300">Romanian
-                        Night</a>
-                    <a href="/category/films-francais" class="py-4 px-2 text-white hover:text-secondary transition duration-300">Films
-                        français</a>
-                    <a href="/contact" class="py-4 px-2 text-white hover:text-secondary transition duration-300">Contact
-                        Us</a>
+                    {% if app.request.pathinfo == '/' %}
+                        <a href="/" class="py-4 px-2 text-secondary border-b-2 border-secondary font-semibold">Home</a>
+                    {% else %}
+                        <a href="/" class="py-4 px-2 text-white hover:text-secondary transition duration-300">Home</a>
+                    {% endif %}
+
+                    {% if app.request.pathinfo == '/category/popular' %}
+                        <a href="/category/popular"
+                           class="py-4 px-2 text-secondary border-b-2 border-secondary font-semibold">Popular</a>
+                    {% else %}
+                        <a href="/category/popular"
+                           class="py-4 px-2 text-white hover:text-secondary transition duration-300">Popular</a>
+                    {% endif %}
+
+                    {% if app.request.pathinfo == '/category/top-rated' %}
+                        <a href="/category/top-rated"
+                           class="py-4 px-2 text-secondary border-b-2 border-secondary font-semibold">Top Rated</a>
+                    {% else %}
+                        <a href="/category/top-rated"
+                           class="py-4 px-2 text-white hover:text-secondary transition duration-300">Top Rated</a>
+                    {% endif %}
+
+                    {% if app.request.pathinfo == '/category/romanian-night' %}
+                        <a href="/category/romanian-night"
+                           class="py-4 px-2 text-secondary border-b-2 border-secondary font-semibold">Romanian
+                            Night</a>
+                    {% else %}
+                        <a href="/category/romanian-night"
+                           class="py-4 px-2 text-white hover:text-secondary transition duration-300">Romanian Night</a>
+                    {% endif %}
+
+                    {% if app.request.pathinfo == '/category/films-francais' %}
+                        <a href="/category/films-francais"
+                           class="py-4 px-2 text-secondary border-b-2 border-secondary font-semibold">Films
+                            français</a>
+                    {% else %}
+                        <a href="/category/films-francais"
+                           class="py-4 px-2 text-white hover:text-secondary transition duration-300">Films français</a>
+                    {% endif %}
+
+                    {% if app.request.pathinfo == '/contact' %}
+                        <a href="/contact" class="py-4 px-2 text-secondary border-b-2 border-secondary font-semibold">Contact</a>
+                    {% else %}
+                        <a href="/contact" class="py-4 px-2 text-white hover:text-secondary transition duration-300">Contact</a>
+                    {% endif %}
                 </div>
             </div>
             <!-- Secondary Navbar items -->

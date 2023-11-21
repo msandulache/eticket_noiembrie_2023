@@ -87,6 +87,27 @@ class MovieRepository extends ServiceEntityRepository
         return $topRatedMovies;
     }
 
+    public function findRandom($limit): array
+    {
+        $randomIds = [];
+
+        $id_limits = $this->createQueryBuilder('m')
+            ->select('MIN(m.id)', 'MAX(m.id)')
+            ->getQuery()
+            ->getOneOrNullResult();
+
+        for($i = 0; $i < $limit; $i++) {
+            $randomIds[] = rand($id_limits[1], $id_limits[2]);
+        }
+
+        return $this->createQueryBuilder('m')
+            ->where('m.id IN (:marray)')
+            ->setParameter('marray', $randomIds)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
 //    public function findOneBySomeField($value): ?Movie
 //    {
 //        return $this->createQueryBuilder('m')
