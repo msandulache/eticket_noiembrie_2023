@@ -45,9 +45,10 @@ class MovieController extends AbstractController
         $body = $response->getBody()->getContents();
         $externalIds = json_decode($body, true);
 
-        $recommendedMovies = $movieRepository->findRandom(4);
+        $recommendedMovies = $this->getRecommendations($movie->getTmdbId());
         $cast = $this->getCast($movie->getTmdbId());
         $videos = $this->getVideos($movie->getTmdbId());
+        $keywords = $this->getKeywords($movie->getTmdbId());
 
         return $this->render('movie/show.html.twig', [
             'movie' => $movie,
@@ -55,7 +56,8 @@ class MovieController extends AbstractController
             'recommendedMovies' => $recommendedMovies,
             'externalIds' => $externalIds,
             'cast' => $cast,
-            'videos' => $videos
+            'videos' => $videos,
+            'keywords' => $keywords
         ]);
     }
 
@@ -77,11 +79,7 @@ class MovieController extends AbstractController
 
         $cast = $result['cast'];
 
-        foreach($cast as $actor) {
-            $actors[] = $actor['name'];
-        }
-
-        return array_slice($actors,0, 5);
+        return array_slice($cast,0, 5);
     }
 
     private function getVideos($movieId)
@@ -109,6 +107,50 @@ class MovieController extends AbstractController
         return array_slice($results,0, 3);
     }
 
-    private function 
+    private function getKeywords($movieId)
+    {
+        $results = [];
+
+        $client = new \GuzzleHttp\Client();
+
+        $response = $client->request('GET', 'https://api.themoviedb.org/3/movie/' . $movieId . '/keywords?language=en-US', [
+            'headers' => [
+                'Authorization' => 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI5MWZiMjI2MzFjYmRkOTZiMzZlMWFhZDBiYjI3YmFmMSIsInN1YiI6IjY0NTUwNTAyZDQ4Y2VlMDBmY2VlYTBjMyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.UB6TNHT7P4Wce6O5hzDoc5sV3bf0Ox3W0Y7h4G6nroA',
+                'accept' => 'application/json',
+            ],
+        ]);
+
+        $body = $response->getBody();
+        $result = json_decode($body, true);
+
+        $keywords = $result['keywords'];
+
+        foreach($keywords as $keyword) {
+            $results[] = $keyword['name'];
+        }
+
+        return array_slice($results,0, 5);
+    }
+
+    private function getRecommendations($movieId)
+    {
+        $results = [];
+
+        $client = new \GuzzleHttp\Client();
+
+        $response = $client->request('GET', 'https://api.themoviedb.org/3/movie/' . $movieId . '/recommendations?language=en-US', [
+            'headers' => [
+                'Authorization' => 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI5MWZiMjI2MzFjYmRkOTZiMzZlMWFhZDBiYjI3YmFmMSIsInN1YiI6IjY0NTUwNTAyZDQ4Y2VlMDBmY2VlYTBjMyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.UB6TNHT7P4Wce6O5hzDoc5sV3bf0Ox3W0Y7h4G6nroA',
+                'accept' => 'application/json',
+            ],
+        ]);
+
+        $body = $response->getBody();
+        $result = json_decode($body, true);
+
+        $movies = $result['results'];
+
+        return array_slice($movies,0, 4);
+    }
 
 }

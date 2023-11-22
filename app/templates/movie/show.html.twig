@@ -10,10 +10,77 @@
         <div class="container grid grid-cols-3 gap-6">
             <div>
                 <img src="https://image.tmdb.org/t/p/w500/{{ movie.posterPath }}" alt="product" class="w-full">
+                <div class="flex justify-center gap-3 mt-6">
+                    <a target="_blank" href="https://www.facebook.com/{{ externalIds['facebook_id'] }}"
+                       class="text-primary hover:text-white hover:bg-primary h-8 w-8 rounded-full border border-primary flex items-center justify-center">
+                        <i class="fa-brands fa-facebook-f"></i>
+                    </a>
+                    <a target="_blank" href="https://twitter.com/{{ externalIds['twitter_id'] }}"
+                       class="text-primary hover:text-white hover:bg-primary h-8 w-8 rounded-full border border-primary flex items-center justify-center">
+                        <i class="fa-brands fa-twitter"></i>
+                    </a>
+                    <a target="_blank" href="https://www.instagram.com/{{ externalIds['instagram_id'] }}"
+                       class="text-primary hover:text-white hover:bg-primary h-8 w-8 rounded-full border border-primary flex items-center justify-center">
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+                </div>
             </div>
 
             <div class="col-span-2">
-                <h2 class="text-3xl font-medium uppercase mb-2">{{ movie.title }}</h2>
+                <h2 class="text-4xl font-medium uppercase mb-6">{{ movie.title }}</h2>
+
+                <div class="flex gap-0.5">
+                    <svg class="h-8 w-8 shrink-0 fill-amber-400" viewBox="0 0 256 256">
+                        <path
+                                d="M239.2 97.4A16.4 16.4.0 00224.6 86l-59.4-4.1-22-55.5A16.4 16.4.0 00128 16h0a16.4 16.4.0 00-15.2 10.4L90.4 82.2 31.4 86A16.5 16.5.0 0016.8 97.4 16.8 16.8.0 0022 115.5l45.4 38.4L53.9 207a18.5 18.5.0 007 19.6 18 18 0 0020.1.6l46.9-29.7h.2l50.5 31.9a16.1 16.1.0 008.7 2.6 16.5 16.5.0 0015.8-20.8l-14.3-58.1L234 115.5A16.8 16.8.0 00239.2 97.4z">
+                        </path>
+                    </svg>
+                    <svg class="h-8 w-8 shrink-0 fill-amber-400" viewBox="0 0 256 256">
+                        <path
+                                d="M239.2 97.4A16.4 16.4.0 00224.6 86l-59.4-4.1-22-55.5A16.4 16.4.0 00128 16h0a16.4 16.4.0 00-15.2 10.4L90.4 82.2 31.4 86A16.5 16.5.0 0016.8 97.4 16.8 16.8.0 0022 115.5l45.4 38.4L53.9 207a18.5 18.5.0 007 19.6 18 18 0 0020.1.6l46.9-29.7h.2l50.5 31.9a16.1 16.1.0 008.7 2.6 16.5 16.5.0 0015.8-20.8l-14.3-58.1L234 115.5A16.8 16.8.0 00239.2 97.4z">
+                        </path>
+                    </svg>
+                    <svg class="h-8 w-8 shrink-0 fill-amber-400" viewBox="0 0 256 256">
+                        <path
+                                d="M239.2 97.4A16.4 16.4.0 00224.6 86l-59.4-4.1-22-55.5A16.4 16.4.0 00128 16h0a16.4 16.4.0 00-15.2 10.4L90.4 82.2 31.4 86A16.5 16.5.0 0016.8 97.4 16.8 16.8.0 0022 115.5l45.4 38.4L53.9 207a18.5 18.5.0 007 19.6 18 18 0 0020.1.6l46.9-29.7h.2l50.5 31.9a16.1 16.1.0 008.7 2.6 16.5 16.5.0 0015.8-20.8l-14.3-58.1L234 115.5A16.8 16.8.0 00239.2 97.4z">
+                        </path>
+                    </svg>
+                    <svg class="h-8 w-8 shrink-0 fill-gray-300" viewBox="0 0 256 256">
+                        <path
+                                d="M239.2 97.4A16.4 16.4.0 00224.6 86l-59.4-4.1-22-55.5A16.4 16.4.0 00128 16h0a16.4 16.4.0 00-15.2 10.4L90.4 82.2 31.4 86A16.5 16.5.0 0016.8 97.4 16.8 16.8.0 0022 115.5l45.4 38.4L53.9 207a18.5 18.5.0 007 19.6 18 18 0 0020.1.6l46.9-29.7h.2l50.5 31.9a16.1 16.1.0 008.7 2.6 16.5 16.5.0 0015.8-20.8l-14.3-58.1L234 115.5A16.8 16.8.0 00239.2 97.4z">
+                        </path>
+                    </svg>
+                    <svg class="h-8 w-8 shrink-0 fill-gray-300" viewBox="0 0 256 256">
+                        <path
+                                d="M239.2 97.4A16.4 16.4.0 00224.6 86l-59.4-4.1-22-55.5A16.4 16.4.0 00128 16h0a16.4 16.4.0 00-15.2 10.4L90.4 82.2 31.4 86A16.5 16.5.0 0016.8 97.4 16.8 16.8.0 0022 115.5l45.4 38.4L53.9 207a18.5 18.5.0 007 19.6 18 18 0 0020.1.6l46.9-29.7h.2l50.5 31.9a16.1 16.1.0 008.7 2.6 16.5 16.5.0 0015.8-20.8l-14.3-58.1L234 115.5A16.8 16.8.0 00239.2 97.4z">
+                        </path>
+                    </svg>
+                </div>
+
+
+
+                <div class="flex items-center">
+                    <svg class="w-4 h-4 text-yellow-300 me-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+                        <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
+                    </svg>
+                    <svg class="w-4 h-4 text-yellow-300 me-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+                        <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
+                    </svg>
+                    <svg class="w-4 h-4 text-yellow-300 me-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+                        <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
+                    </svg>
+                    <svg class="w-4 h-4 text-yellow-300 me-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+                        <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
+                    </svg>
+                    <svg class="w-4 h-4 text-gray-300 me-1 dark:text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+                        <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
+                    </svg>
+                    <p class="ms-1 text-sm font-medium text-gray-500 dark:text-gray-400">4.95</p>
+                    <p class="ms-1 text-sm font-medium text-gray-500 dark:text-gray-400">out of</p>
+                    <p class="ms-1 text-sm font-medium text-gray-500 dark:text-gray-400">5</p>
+                </div>
+
+                
                 <div class="flex items-center mb-4">
                     <div class="flex gap-1 text-sm text-yellow-400">
                         <span><i class="fa-solid fa-star"></i></span>
@@ -25,51 +92,42 @@
                     <div class="text-xs text-gray-500 ml-3">({{ movie.voteCount }} votes)</div>
                 </div>
                 <div class="space-y-2">
-                    <p class="text-gray-800 font-semibold space-x-2">
-                        <span>Release date: </span>
-                        <span class="text-green-600">{{ movie.releaseDate | date('d.m.Y') }}</span>
-                    </p>
+
                     <p class="space-x-1">
-                        <span class="text-gray-800 font-semibold">Genres: </span>
                         {% for genre in genres %}
-                            <span class="inline-flex items-center rounded-md bg-red-50 px-2 py-1 text-xs font-medium text-red-600 ring-1 ring-inset ring-red-600/10">{{ genre.name }}</span>
+                            <span class="text-primary font-semibold inline-flex items-center justify-center rounded-md px-2 py-1 text-xs font-medium border border-primary ">{{ genre.name }}</span>
                             &nbsp;
                         {% endfor %}
+                    </p>
+                    <p class="space-x-2">
+                        <span class="text-gray-800 font-semibold">Release date: </span>
+                        <span class="text-gray-600">{{ movie.releaseDate | date('d.m.Y') }}</span>
                     </p>
 
                     <p class="space-x-1">
                         <span class="text-gray-800 font-semibold">Actors: </span>
                         {% for actor in cast %}
-                            <span class="text-gray-600 text-sm italic">{{ actor }}{% if not loop.last %},{% endif %}</span>
+                            <span class="text-gray-600 text-sm"><img src="https://image.tmdb.org/t/p/original/{{ actor['profile_path'] }}" alt="product" class="inline object-cover w-8 h-8 rounded-full"> {{ actor['name'] }}{% if not loop.last %},{% endif %}</span>
                         {% endfor %}
                     </p>
-                    <p class="space-x-2">
-                        <span class="text-gray-800 font-semibold">SKU: </span>
-                        <span class="text-gray-600">BE45VGRT</span>
-                    </p>
                 </div>
+
+                <p class="mt-6 text-gray-600 leading-relaxed">{{ movie.overview }}</p>
+
+
+
+                <p class="mt-6">
+                    {% for keyword in keywords %}
+                        <span class="rounded-md px-2 py-1 text-xs font-medium text-gray-600 border border-gray-600 inline-flex items-center justify-center">{{ keyword }}</span>
+                    {% endfor %}
+                </p>
+
+
+
                 <div class="flex items-baseline mb-1 space-x-2 font-roboto mt-4">
-                    <p class="text-xl text-primary font-semibold">${{ movie.price }}</p>
-                    <p class="text-base text-gray-400 line-through">$55.00</p>
+                    <p class="text-3xl text-primary font-semibold">${{ movie.price }}</p>
+                    <p class="text-2xl text-gray-400 line-through">$55.00</p>
                 </div>
-
-                <p class="mt-4 text-gray-600 leading-relaxed">{{ movie.overview }}</p>
-
-                <div class="flex gap-3 mt-4">
-                    <a target="_blank" href="https://www.facebook.com/{{ externalIds['facebook_id'] }}"
-                       class="text-gray-400 hover:text-gray-500 h-8 w-8 rounded-full border border-gray-300 flex items-center justify-center">
-                        <i class="fa-brands fa-facebook-f"></i>
-                    </a>
-                    <a target="_blank" href="https://twitter.com/{{ externalIds['twitter_id'] }}"
-                       class="text-gray-400 hover:text-gray-500 h-8 w-8 rounded-full border border-gray-300 flex items-center justify-center">
-                        <i class="fa-brands fa-twitter"></i>
-                    </a>
-                    <a target="_blank" href="https://www.instagram.com/{{ externalIds['instagram_id'] }}"
-                       class="text-gray-400 hover:text-gray-500 h-8 w-8 rounded-full border border-gray-300 flex items-center justify-center">
-                        <i class="fa-brands fa-instagram"></i>
-                    </a>
-                </div>
-
 
                 <div class="mt-6 flex gap-3 border-b border-gray-200 pb-5 pt-5">
                     <a href="#"
@@ -111,26 +169,27 @@
             <div class="grid grid-cols-4 gap-6">
                 {% for movie in recommendedMovies %}
                     <article class="rounded-xl bg-white p-3 shadow-lg hover:shadow-xl">
-                        <a href="/movie/{{ movie.id }}">
+                        <a href="/movie/{{ movie['id'] }}">
                             <div class="relative flex items-end overflow-hidden rounded-xl">
-                                <img src="https://image.tmdb.org/t/p/w300/{{ movie.backdropPath }}" alt="Hotel Photo"/>
+                                <img src="https://image.tmdb.org/t/p/w300/{{ movie['backdrop_path'] }}"
+                                     alt="Hotel Photo"/>
                                 <div class="absolute bottom-3 left-3 inline-flex items-center rounded-lg bg-white p-2 shadow-md">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-secondary"
                                          viewBox="0 0 20 20"
                                          fill="currentColor">
                                         <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
                                     </svg>
-                                    <span class="text-slate-400 ml-1 text-sm">{{ movie.voteAverage | number_format(1) }}</span>
+                                    <span class="text-slate-400 ml-1 text-sm">{{ movie['vote_average'] | number_format(1) }}</span>
                                 </div>
                             </div>
 
                             <div class="mt-1 p-2">
-                                <h2 class="text-slate-700">{{ movie.originalTitle }}</h2>
+                                <h2 class="text-slate-700">{{ movie['original_title'] }}</h2>
                                 <p class="text-slate-400 mt-1 text-sm">Thriller, Drama</p>
 
                                 <div class="flex items-center justify-between py-2">
                                     <p>
-                                        <span class="text-xl font-bold text-primary">${{ movie.price }}</span>
+                                        <span class="text-xl font-bold text-primary">$1.2</span>
                                     </p>
                                     <a href="#"
                                        class="bg-secondary flex items-center justify-center rounded-full px-5 py-1.5 text-center text-sm font-medium text-primary hover:bg-slate-200 hover:text-slate-700">
