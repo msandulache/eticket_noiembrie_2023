@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Api\TheMovieDataBase;
 use App\Repository\GenreRepository;
 use App\Repository\MovieRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -11,14 +12,11 @@ use Symfony\Component\Routing\Annotation\Route;
 class MovieController extends AbstractController
 {
     #[Route('/', name: 'app_index')]
-    public function index(MovieRepository $movieRepository): Response
+    public function index(TheMovieDataBase $theMovieDataBase): Response
     {
-        $nowPlayingMovies = $movieRepository->findByCategoryId(100, 8);
-        $popularMovies = $movieRepository->findByCategoryId(97, 8);
-
         return $this->render('movie/index.html.twig', [
-            'nowPlayingMovies' => $nowPlayingMovies,
-            'popularMovies' => $popularMovies
+            'nowPlayingMovies' => $theMovieDataBase->getNowPlayingMovies(8),
+             'popularMovies' => $theMovieDataBase->getPopularMovies(8)
         ]);
     }
 
