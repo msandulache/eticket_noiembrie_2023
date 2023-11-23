@@ -41,14 +41,79 @@ class TheMovieDataBase
         return $this->getMovies('popular', $limit);
     }
 
+    public function getTopRatedMovies(?int $limit = null)
+    {
+        return $this->discoverMovies('&vote_average.gte=8', $limit);
+    }
+
+    public function getRomanceMovies(?int $limit = null)
+    {
+        return $this->discoverMovies('&with_genres=10749&without_genres=10751%2C14%2C16&vote_average.gte=7', $limit);
+    }
+
+    public function getFamilyMovies(?int $limit = null)
+    {
+        return $this->discoverMovies('&with_genres=10751&vote_average.gte=7', $limit);
+    }
+
+    public function getMovie(int $id)
+    {
+        $movie = $this->get('/movie/' . $id);
+
+        $movie['poster_path'] = $this->images_base_url . $this->images_backdrop_size . $movie['poster_path'];
+        $movie['genres'] = $this->getGenres($movie['genres'], 5);
+        $movie['externalIds'] = $this->getExternalIds($id);
+        $movie['cast'] = $this->getCast($id, 5);
+        $movie['videos'] = $this->getVideos($id, 3);
+        $movie['keywords'] = $this->getKeywords($id, 5);
+
+        return $movie;
+    }
+
+    private function getExternalIds($movieId)
+    {
+        return $this->get('/movie/' . $movieId . '/external_ids');
+    }
+
+    private function getCast($movieId, $limit)
+    {
+        $credits = $this->get('/movie/' . $movieId . '/credits?language=en-US');
+        return array_slice($credits['cast'], 0, $limit);
+    }
+
+    private function getVideos($movieId, $limit)
+    {
+        $videos = $this->get('/movie/' . $movieId . '/videos?language=en-US');
+        return array_slice($videos['results'], 0, $limit);
+    }
+
+    private function getKeywords($movieId, $limit)
+    {
+        $results = $this->get('/movie/' . $movieId . '/keywords?language=en-US');
+        return array_slice($results['keywords'], 0, $limit);
+    }
+
     private function getMovies(string $queryString, ?int$limit = null): array
     {
-        $movies = [];
         $response = $this->get('/movie/' . $queryString);
+        $movies = $this->parseResponse($response, $limit);
+        return $movies;
+    }
+
+    private function discoverMovies(string $queryString, ?int$limit = null): array
+    {
+        $response = $this->get('/discover/movie?language=en-US&sort_by=popularity.desc&year=' . date('Y') . $queryString);
+        $movies = $this->parseResponse($response, $limit);
+        return $movies;
+    }
+
+    private function parseResponse($response, $limit = null)
+    {
+        $movies = [];
 
         if(isset($response['results'])) {
             foreach($response['results'] as $result) {
-                if(isset($result['title']) && $result['poster_path'] && $result['overview']) {
+                if(isset($result['title']) && $result['backdrop_path'] && $result['overview']) {
                     $movies[] = [
                         'id' => $result['id'],
                         'title' => $result['title'],
@@ -59,10 +124,10 @@ class TheMovieDataBase
                     ];
                 }
             }
-        }
 
-        if(!empty($limit)) {
-            return array_slice($movies, 0, $limit);
+            if(!empty($limit)) {
+                return array_slice($movies, 0, $limit);
+            }
         }
 
         return $movies;
@@ -88,7 +153,7 @@ class TheMovieDataBase
     {
         $client = new Client();
 
-        $response = $client->request('GET', self::URL  . $queryString . '?language=' . self::LANGUAGE, [
+        $response = $client->request('GET', self::URL  . $queryString, [
             'headers' => [
                 'Authorization' => 'Bearer ' . self::BEARER,
                 'accept' => 'application/json',

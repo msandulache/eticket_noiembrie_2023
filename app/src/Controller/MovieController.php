@@ -20,135 +20,58 @@ class MovieController extends AbstractController
         ]);
     }
 
-    #[Route('/movie/{id}', name: 'app_movie')]
-    public function show(int $id, MovieRepository $movieRepository, GenreRepository $genreRepository): Response
+    #[Route('/now-playing', name: 'app_now_playing')]
+    public function nowPlaying(TheMovieDataBase $theMovieDataBase): Response
     {
-        $movie = $movieRepository->find($id);
-
-        $genres = null;
-        $genresIds = $movie->getGenreIds();
-        if(!empty($genresIds)) {
-            $genres = $genreRepository->findByTmdbIds($movie->getGenreIds());
-        }
-
-        $client = new \GuzzleHttp\Client();
-
-        $response = $client->request('GET', 'https://api.themoviedb.org/3/movie/' . $movie->getTmdbId() . '/external_ids', [
-            'headers' => [
-                'Authorization' => 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI5MWZiMjI2MzFjYmRkOTZiMzZlMWFhZDBiYjI3YmFmMSIsInN1YiI6IjY0NTUwNTAyZDQ4Y2VlMDBmY2VlYTBjMyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.UB6TNHT7P4Wce6O5hzDoc5sV3bf0Ox3W0Y7h4G6nroA',
-                'accept' => 'application/json',
-            ],
+        return $this->render('movie/list.html.twig', [
+            'title' => 'Now Playing',
+            'movies' => $theMovieDataBase->getNowPlayingMovies()
         ]);
+    }
 
-        $body = $response->getBody()->getContents();
-        $externalIds = json_decode($body, true);
+    #[Route('/popular', name: 'app_popular')]
+    public function popular(TheMovieDataBase $theMovieDataBase): Response
+    {
+        return $this->render('movie/list.html.twig', [
+            'title' => 'Popular movies',
+            'movies' => $theMovieDataBase->getPopularMovies()
+        ]);
+    }
 
-        $recommendedMovies = $this->getRecommendations($movie->getTmdbId());
-        $cast = $this->getCast($movie->getTmdbId());
-        $videos = $this->getVideos($movie->getTmdbId());
-        $keywords = $this->getKeywords($movie->getTmdbId());
+    #[Route('/top-rated', name: 'app_top_rated')]
+    public function topRated(TheMovieDataBase $theMovieDataBase): Response
+    {
+        return $this->render('movie/list.html.twig', [
+            'title' => 'Top rated movies',
+            'movies' => $theMovieDataBase->getTopRatedMovies()
+        ]);
+    }
+
+    #[Route('/romance', name: 'app_romance')]
+    public function romance(TheMovieDataBase $theMovieDataBase): Response
+    {
+        return $this->render('movie/list.html.twig', [
+            'title' => 'Romance night',
+            'movies' => $theMovieDataBase->getRomanceMovies()
+        ]);
+    }
+
+    #[Route('/family', name: 'app_family')]
+    public function family(TheMovieDataBase $theMovieDataBase): Response
+    {
+        return $this->render('movie/list.html.twig', [
+            'title' => 'Family movies',
+            'movies' => $theMovieDataBase->getFamilyMovies()
+        ]);
+    }
+
+    #[Route('/movie/{id}', name: 'app_movie')]
+    public function movie(int $id, TheMovieDataBase $theMovieDataBase): Response
+    {
+        $movie = $theMovieDataBase->getMovie($id);
 
         return $this->render('movie/show.html.twig', [
             'movie' => $movie,
-            'genres' => $genres,
-            'recommendedMovies' => $recommendedMovies,
-            'externalIds' => $externalIds,
-            'cast' => $cast,
-            'videos' => $videos,
-            'keywords' => $keywords
         ]);
     }
-
-    private function getCast($movieId)
-    {
-        $actors = [];
-
-        $client = new \GuzzleHttp\Client();
-
-        $response = $client->request('GET', 'https://api.themoviedb.org/3/movie/' . $movieId .'/credits?language=en-US', [
-            'headers' => [
-                'Authorization' => 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI5MWZiMjI2MzFjYmRkOTZiMzZlMWFhZDBiYjI3YmFmMSIsInN1YiI6IjY0NTUwNTAyZDQ4Y2VlMDBmY2VlYTBjMyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.UB6TNHT7P4Wce6O5hzDoc5sV3bf0Ox3W0Y7h4G6nroA',
-                'accept' => 'application/json',
-            ],
-        ]);
-
-        $body = $response->getBody();
-        $result = json_decode($body, true);
-
-        $cast = $result['cast'];
-
-        return array_slice($cast,0, 5);
-    }
-
-    private function getVideos($movieId)
-    {
-        $results = [];
-
-        $client = new \GuzzleHttp\Client();
-
-        $response = $client->request('GET', 'https://api.themoviedb.org/3/movie/' . $movieId . '/videos?language=en-US', [
-            'headers' => [
-                'Authorization' => 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI5MWZiMjI2MzFjYmRkOTZiMzZlMWFhZDBiYjI3YmFmMSIsInN1YiI6IjY0NTUwNTAyZDQ4Y2VlMDBmY2VlYTBjMyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.UB6TNHT7P4Wce6O5hzDoc5sV3bf0Ox3W0Y7h4G6nroA',
-                'accept' => 'application/json',
-            ],
-        ]);
-
-        $body = $response->getBody();
-        $result = json_decode($body, true);
-
-        $videos = $result['results'];
-
-        foreach($videos as $video) {
-            $results[] = $video['key'];
-        }
-
-        return array_slice($results,0, 3);
-    }
-
-    private function getKeywords($movieId)
-    {
-        $results = [];
-
-        $client = new \GuzzleHttp\Client();
-
-        $response = $client->request('GET', 'https://api.themoviedb.org/3/movie/' . $movieId . '/keywords?language=en-US', [
-            'headers' => [
-                'Authorization' => 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI5MWZiMjI2MzFjYmRkOTZiMzZlMWFhZDBiYjI3YmFmMSIsInN1YiI6IjY0NTUwNTAyZDQ4Y2VlMDBmY2VlYTBjMyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.UB6TNHT7P4Wce6O5hzDoc5sV3bf0Ox3W0Y7h4G6nroA',
-                'accept' => 'application/json',
-            ],
-        ]);
-
-        $body = $response->getBody();
-        $result = json_decode($body, true);
-
-        $keywords = $result['keywords'];
-
-        foreach($keywords as $keyword) {
-            $results[] = $keyword['name'];
-        }
-
-        return array_slice($results,0, 5);
-    }
-
-    private function getRecommendations($movieId)
-    {
-        $results = [];
-
-        $client = new \GuzzleHttp\Client();
-
-        $response = $client->request('GET', 'https://api.themoviedb.org/3/movie/' . $movieId . '/recommendations?language=en-US', [
-            'headers' => [
-                'Authorization' => 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI5MWZiMjI2MzFjYmRkOTZiMzZlMWFhZDBiYjI3YmFmMSIsInN1YiI6IjY0NTUwNTAyZDQ4Y2VlMDBmY2VlYTBjMyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.UB6TNHT7P4Wce6O5hzDoc5sV3bf0Ox3W0Y7h4G6nroA',
-                'accept' => 'application/json',
-            ],
-        ]);
-
-        $body = $response->getBody();
-        $result = json_decode($body, true);
-
-        $movies = $result['results'];
-
-        return array_slice($movies,0, 4);
-    }
-
 }

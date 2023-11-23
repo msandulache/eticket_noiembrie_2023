@@ -121,38 +121,36 @@
                         <a href="/" class="py-4 px-2 text-white hover:text-secondary transition duration-300">Home</a>
                     {% endif %}
 
-                    {% if app.request.pathinfo == '/category/popular' %}
-                        <a href="/category/popular"
+                    {% if app.request.pathinfo == '/popular' %}
+                        <a href="/popular"
                            class="py-4 px-2 text-secondary border-b-2 border-secondary font-semibold">Popular</a>
                     {% else %}
-                        <a href="/category/popular"
+                        <a href="/popular"
                            class="py-4 px-2 text-white hover:text-secondary transition duration-300">Popular</a>
                     {% endif %}
 
-                    {% if app.request.pathinfo == '/category/top-rated' %}
-                        <a href="/category/top-rated"
+                    {% if app.request.pathinfo == '/top-rated' %}
+                        <a href="/top-rated"
                            class="py-4 px-2 text-secondary border-b-2 border-secondary font-semibold">Top Rated</a>
                     {% else %}
-                        <a href="/category/top-rated"
+                        <a href="/top-rated"
                            class="py-4 px-2 text-white hover:text-secondary transition duration-300">Top Rated</a>
                     {% endif %}
 
-                    {% if app.request.pathinfo == '/category/romanian-night' %}
-                        <a href="/category/romanian-night"
-                           class="py-4 px-2 text-secondary border-b-2 border-secondary font-semibold">Romanian
-                            Night</a>
+                    {% if app.request.pathinfo == '/romance' %}
+                        <a href="/romance"
+                           class="py-4 px-2 text-secondary border-b-2 border-secondary font-semibold">Romance</a>
                     {% else %}
-                        <a href="/category/romanian-night"
-                           class="py-4 px-2 text-white hover:text-secondary transition duration-300">Romanian Night</a>
+                        <a href="/romance"
+                           class="py-4 px-2 text-white hover:text-secondary transition duration-300">Romance</a>
                     {% endif %}
 
-                    {% if app.request.pathinfo == '/category/films-francais' %}
-                        <a href="/category/films-francais"
-                           class="py-4 px-2 text-secondary border-b-2 border-secondary font-semibold">Films
-                            français</a>
+                    {% if app.request.pathinfo == '/family' %}
+                        <a href="/family"
+                           class="py-4 px-2 text-secondary border-b-2 border-secondary font-semibold">Family</a>
                     {% else %}
-                        <a href="/category/films-francais"
-                           class="py-4 px-2 text-white hover:text-secondary transition duration-300">Films français</a>
+                        <a href="/family"
+                           class="py-4 px-2 text-white hover:text-secondary transition duration-300">Family</a>
                     {% endif %}
 
                     {% if app.request.pathinfo == '/contact' %}
@@ -235,21 +233,28 @@
             </div>
         </div>
         <div class="text-center">
-            <div class="mt-4 mb-2 font-medium xl:mb-4 text-secondary">Address</div>
-            <div class="text-gray-400">
+            <div class="mt-4 mb-2 font-medium xl:mb-4 text-secondary">Contact Info</div>
+            <div class="mb-3 text-gray-400">
                 Drumul Binelui <br/>
                 nr. 31, <br/>
                 Bucharest, RO
+            </div>
+            <div class="mb-3 text-gray-400">
+                0745 608 128
+            </div>
+            <div class="mb-3 text-gray-400">
+                mariussandulache2015@gmail.com
             </div>
         </div>
         <div class="text-center">
             <div class="mt-4 mb-2 font-medium xl:mb-4 text-secondary">Menu</div>
             <nav aria-label="Footer Navigation" class="text-gray-400">
-                <ul class="space-y-3">
-                    <li><a class="hover:text-white" href="/category/97">Popular</a></li>
-                    <li><a class="hover:text-white" href="#">Top rated</a></li>
-                    <li><a class="hover:text-white" href="/category/98">Romanian Night</a></li>
-                    <li><a class="hover:text-white" href="/category/99">Films français</a></li>
+                <ul class="space-y-2">
+                    <li><a class="hover:text-white" href="/now-playing">Now playing</a></li>
+                    <li><a class="hover:text-white" href="/popular">Popular</a></li>
+                    <li><a class="hover:text-white" href="/top-rated">Top rated</a></li>
+                    <li><a class="hover:text-white" href="/romance">Romance</a></li>
+                    <li><a class="hover:text-white" href="/family">Family</a></li>
                     <li><a class="hover:text-white" href="/contact">Contact Us</a></li>
                 </ul>
             </nav>
@@ -278,6 +283,52 @@
     </div>
 </footer>
 
+<!-- Back to top button -->
+<button
+        type="button"
+        data-te-ripple-init
+        data-te-ripple-color="light"
+        class="!fixed bottom-5 right-5 hidden rounded-full bg-primary p-3 text-xs font-medium uppercase leading-tight text-white shadow-md transition duration-150 ease-in-out hover:bg-primary hover:shadow-lg focus:bg-primary focus:shadow-lg focus:outline-none focus:ring-0 active:bg-primary active:shadow-lg"
+        id="btn-back-to-top">
+    <svg
+            aria-hidden="true"
+            focusable="false"
+            data-prefix="fas"
+            class="h-4 w-4"
+            role="img"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 448 512">
+        <path
+                fill="currentColor"
+                d="M34.9 289.5l-22.2-22.2c-9.4-9.4-9.4-24.6 0-33.9L207 39c9.4-9.4 24.6-9.4 33.9 0l194.3 194.3c9.4 9.4 9.4 24.6 0 33.9L413 289.4c-9.5 9.5-25 9.3-34.3-.4L264 168.6V456c0 13.3-10.7 24-24 24h-32c-13.3 0-24-10.7-24-24V168.6L69.2 289.1c-9.3 9.8-24.8 10-34.3.4z"></path>
+    </svg>
+</button>
+
+<script>
+    // Get the button
+    const mybutton = document.getElementById("btn-back-to-top");
+
+    // When the user scrolls down 20px from the top of the document, show the button
+
+    const scrollFunction = () => {
+        if (
+            document.body.scrollTop > 20 ||
+            document.documentElement.scrollTop > 20
+        ) {
+            mybutton.classList.remove("hidden");
+        } else {
+            mybutton.classList.add("hidden");
+        }
+    };
+    const backToTop = () => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    };
+
+    // When the user clicks on the button, scroll to the top of the document
+    mybutton.addEventListener("click", backToTop);
+
+    window.addEventListener("scroll", scrollFunction);
+</script>
 </body>
 
 </html>

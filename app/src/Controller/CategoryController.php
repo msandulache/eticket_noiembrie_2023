@@ -22,7 +22,7 @@ class CategoryController extends AbstractController
             $movies = $movieRepository->findByCategoryId($category->getId());
         }
 
-        return $this->render('category/index.html.twig', [
+        return $this->render('category/list.html.twig', [
             'categoryName' => 'Popular Movies',
             'movies' => $movies,
         ]);
@@ -35,7 +35,7 @@ class CategoryController extends AbstractController
     {
         $movies = $movieRepository->findAllTopRated();
 
-        return $this->render('category/index.html.twig', [
+        return $this->render('category/list.html.twig', [
             'categoryName' => 'Top Rated Movies',
             'movies' => $movies,
         ]);
@@ -53,7 +53,7 @@ class CategoryController extends AbstractController
             $movies = $movieRepository->findByCategoryId($category->getId());
         }
 
-        return $this->render('category/index.html.twig', [
+        return $this->render('category/list.html.twig', [
             'categoryName' => 'Romanian Night',
             'movies' => $movies,
         ]);
@@ -71,7 +71,7 @@ class CategoryController extends AbstractController
             $movies = $movieRepository->findByCategoryId($category->getId());
         }
 
-        return $this->render('category/index.html.twig', [
+        return $this->render('category/list.html.twig', [
             'categoryName' => 'Films Francais',
             'movies' => $movies,
         ]);
