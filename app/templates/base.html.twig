@@ -31,6 +31,37 @@
         }
     </script>
 
+    <style>
+        .dropbtn {
+            color: white;
+            font-size: 16px;
+            border: none;
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: whitesmoke;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+            right: 0px;
+        }
+
+        .dropdown-content a {
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown:hover .dropdown-content {display: block;}
+    </style>
+
     {% block stylesheets %}
         {{ encore_entry_link_tags('app') }}
     {% endblock %}
@@ -65,39 +96,8 @@
             </button>
         </div>
 
-        {% if app.user %}
-            <div class="flex items-center space-x-4 mr-3">
-                <a href="#" class="text-center text-tertiary hover:text-primary transition relative">
-                    <div class="text-2xl">
-                        <i class="fa-regular fa-heart"></i>
-                    </div>
-                    <div class="text-xs leading-3">Wishlist</div>
-                    <div
-                            class="absolute right-0 -top-1 w-5 h-5 rounded-full flex items-center justify-center bg-primary text-white text-xs">
-                        8
-                    </div>
-                </a>
-                <a href="#" class="text-center text-tertiary hover:text-primary transition relative">
-                    <div class="text-2xl">
-                        <i class="fa-solid fa-bag-shopping"></i>
-                    </div>
-                    <div class="text-xs leading-3">Cart</div>
-                    <div
-                            class="absolute -right-3 -top-1 w-5 h-5 rounded-full flex items-center justify-center bg-primary text-white text-xs">
-                        2
-                    </div>
-                </a>
-                <a href="#" class="text-center text-tertiary hover:text-primary transition relative">
-                    <div class="text-2xl">
-                        <i class="fa-regular fa-user"></i>
-                    </div>
-                    <div class="text-xs leading-3">Account</div>
-                </a>
-            </div>
-        {% else %}
-            <div class="flex items-center space-x-4 mr-3">
-            </div>
-        {% endif %}
+        {{ render(controller('App\\Controller\\BaseController::navbar')) }}
+
     </div>
 </header>
 <!-- ./header -->
@@ -162,12 +162,7 @@
             </div>
             <!-- Secondary Navbar items -->
             {% if app.user %}
-                <div class="hidden md:flex items-center space-x-3 ">
-                    <a href=""
-                       class="py-2 px-2 font-medium text-white rounded hover:bg-secondary hover:text-primary transition duration-300">{{ app.user.userIdentifier }}</a>
-                    <a href="{{ path('app_logout') }}"
-                       class="py-2 px-2 font-medium text-primary bg-secondary rounded transition duration-300">Logout</a>
-                </div>
+
             {% else %}
                 <div class="hidden md:flex items-center space-x-3 ">
                     <a href="/login"

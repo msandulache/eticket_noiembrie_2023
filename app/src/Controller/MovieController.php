@@ -3,8 +3,6 @@
 namespace App\Controller;
 
 use App\Api\TheMovieDataBase;
-use App\Repository\GenreRepository;
-use App\Repository\MovieRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -15,7 +13,7 @@ class MovieController extends AbstractController
     public function index(TheMovieDataBase $theMovieDataBase): Response
     {
         return $this->render('movie/index.html.twig', [
-            'nowPlayingMovies' => $theMovieDataBase->getNowPlayingMovies(8),
+             'nowPlayingMovies' => $theMovieDataBase->getNowPlayingMovies(8),
              'popularMovies' => $theMovieDataBase->getPopularMovies(8)
         ]);
     }

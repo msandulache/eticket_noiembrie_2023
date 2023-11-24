@@ -29,6 +29,7 @@ class TheMovieDataBase
         $this->images_base_url = $response['images']['base_url'] ?? $response['images']['base_url'];
         $this->images_secure_base_url = $response['images']['secure_base_url'] ?? $response['images']['secure_base_url'];
         $this->images_backdrop_size = $response['images']['backdrop_sizes'][0] ?? $response['images']['backdrop_sizes'][0];
+        $this->images_poster_size = $response['images']['poster_sizes'][0] ?? $response['images']['poster_sizes'][0];
     }
 
     public function getNowPlayingMovies(?int $limit = null)
@@ -60,12 +61,14 @@ class TheMovieDataBase
     {
         $movie = $this->get('/movie/' . $id);
 
-        $movie['poster_path'] = $this->images_base_url . $this->images_backdrop_size . $movie['poster_path'];
+        $movie['poster_path'] = $this->images_base_url . $this->images_poster_size . $movie['poster_path'];
+        $movie['backdrop_path'] = $this->images_base_url . $this->images_backdrop_size . $movie['backdrop_path'];
         $movie['genres'] = $this->getGenres($movie['genres'], 5);
         $movie['externalIds'] = $this->getExternalIds($id);
         $movie['cast'] = $this->getCast($id, 5);
         $movie['videos'] = $this->getVideos($id, 3);
         $movie['keywords'] = $this->getKeywords($id, 5);
+        $movie['price'] = $this->calculatePrice($movie);
 
         return $movie;
     }
@@ -105,6 +108,11 @@ class TheMovieDataBase
         $response = $this->get('/discover/movie?language=en-US&sort_by=popularity.desc&year=' . date('Y') . $queryString);
         $movies = $this->parseResponse($response, $limit);
         return $movies;
+    }
+
+    private function calculatePrice($movie)
+    {
+        return number_format($movie['vote_average'] * 2, 2);
     }
 
     private function parseResponse($response, $limit = null)
